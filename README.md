@@ -2672,6 +2672,26 @@ So we say that the error.statuscode is equalto err.statuscode basically if it is
  err.status = err.status || 'error';
 ```
 
+```js
+  //testing by creating a new error
+  const err = new Error(`Can't find ${req.originalUrl} on this server`);
+  err.status = 'failed';
+  err.statusCode = 404;
+});
+
+//error middleware
+app.use((err, req, res, next) => {
+  //internal server error 500
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
+});
+```
+
 
 
 ## Better Errors and Refactoring
