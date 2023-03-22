@@ -29,8 +29,13 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tours', tourRouter);
 
-// Import route handler
-app.get();
+// implement route handler, handler all routes, http methods
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'failed',
+    message: `Can't find ${req.originalUrl} on this server`,
+  });
+});
 
 //app.get('/api/v1/tours', getAllTours);
 //app.post('/api/v1/tours', createTour);
