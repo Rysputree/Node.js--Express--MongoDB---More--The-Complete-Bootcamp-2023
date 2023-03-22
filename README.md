@@ -2628,4 +2628,14 @@ const validator = require('validator');
 
 # 🚧Error Handling with Express
 
-# 
+> package.json
+
+```js
+"debug": "ndb server.js"
+```
+
+```js
+sudo npm i ndb
+sudo npm run debug
+```
+
