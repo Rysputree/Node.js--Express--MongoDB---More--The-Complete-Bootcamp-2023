@@ -2654,3 +2654,35 @@ app.all('*', (req, res, next) => {
 ```
 
 ##  An Overview of Error Handling
+
+![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679465938/Screen_Shot_2023-03-22_at_1.18.50_AM_nmzdun.png)
+
+## Implementing a Global Error Handling Middleware
+
+we have request, response, and next.So by specifying four parameters, Express automatically knows that this entire function here is an error handling middleware.
+
+```js
+app.use((err, req, res, next) => {});
+```
+
+
+
+## Better Errors and Refactoring
+
+## Catching Errors in Async Functions
+
+## Adding 404 Not Found Errors
+
+## Errors During Development vs Production
+
+## Handling Invalid Database IDs
+
+## Handling Duplicate Database Fields
+
+## Handling Mongoose Validation Errors
+
+- 
+
+  ##  Errors Outside Express: Unhandled Rejections
+
+  
