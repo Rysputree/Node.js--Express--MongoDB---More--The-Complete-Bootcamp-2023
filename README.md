@@ -2665,6 +2665,13 @@ we have request, response, and next.So by specifying four parameters, Express au
 app.use((err, req, res, next) => {});
 ```
 
+So we say that the error.statuscode is equalto err.statuscode basically if it is defined or the code 500, which means again,internal server error, and so that's usually the standard that we use.And in the same way, we also define the status,so let's say **error.status** is equal to error.status if it is defined, and if not,it's error So error, remember, is when we have a 500 status codeand if it's a 400 status code, then it's a fail.So for example here in this 404 , status is fail.And so now here we can then use that,so error.statuscode, and then send some json,so very similar to what we did before.
+
+```js
+ err.statusCode = err.statusCode || 500;
+ err.status = err.status || 'error';
+```
+
 
 
 ## Better Errors and Refactoring
