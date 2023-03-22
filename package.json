@@ -1,0 +1,37 @@
+{
+  "name": "itsyuimoriiTours",
+  "version": "1.0.0",
+  "description": "Node.js, express, mongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "debug": "ndb server.js"
+  },
+  "author": "itsyuimorii",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^5.5.2",
+    "morgan": "^1.10.0",
+    "ndb": "^1.1.5",
+    "slugify": "^1.6.5",
+    "validator": "^13.9.0"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}
