@@ -29,6 +29,9 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tours', tourRouter);
 
+// Import route handler
+app.get();
+
 //app.get('/api/v1/tours', getAllTours);
 //app.post('/api/v1/tours', createTour);
 // app.get('/api/v1/tours/:id', getTour);
