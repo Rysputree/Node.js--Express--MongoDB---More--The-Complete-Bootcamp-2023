@@ -2787,7 +2787,7 @@ module.exports = (err, req, res, next) => {
 
 In out tourController.js file, catch error in all async function
 
-
+catchAsync function 
 
 
 
