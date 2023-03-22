@@ -36,10 +36,12 @@ app.all('*', (req, res, next) => {
   //   message: `Can't find ${req.originalUrl} on this server`,
   // });
 
-  //testing by creating a new error
+  //creating a new Error object
   const err = new Error(`Can't find ${req.originalUrl} on this server`);
   err.status = 'failed';
   err.statusCode = 404;
+  //we need to pass the err into next()
+  next(err);
 });
 
 app.use((err, req, res, next) => {

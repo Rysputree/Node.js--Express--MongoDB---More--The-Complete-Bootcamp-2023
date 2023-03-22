@@ -2673,12 +2673,6 @@ So we say that the error.statuscode is equalto err.statuscode basically if it is
 ```
 
 ```js
-  //testing by creating a new error
-  const err = new Error(`Can't find ${req.originalUrl} on this server`);
-  err.status = 'failed';
-  err.statusCode = 404;
-});
-
 //error middleware
 app.use((err, req, res, next) => {
   //internal server error 500
@@ -2692,9 +2686,53 @@ app.use((err, req, res, next) => {
 });
 ```
 
+```js
+app.all('*', (req, res, next) => {
+ 
+  //creating a new Error object
+  const err = new Error(`Can't find ${req.originalUrl} on this server`);
+  err.status = 'failed';
+  err.statusCode = 404;
+  
+  
+  //we need to pass the err into next()
+  next(err);
+  //this will trigger error middleware
+});
+```
+
+## Create own Errors Class and Refactoring
+
+In this video, let's now createa better and more useful error class,and also do some refactoring.And starting with that error class,let's create a new file in our Utilities folder. So, new file, and I'm going to call it AppError because that's going to be the name of the class, all right? So, class AppError, and we actually want all of our AppError objects to then inherit from the built-in error,and so let's actually extend the built-in error class. 
+
+```js
+class AppError extends Error {
+  // so, remember the constructor method is calledeach time that we create a new object out of this class.
+  constructor(message, statusCode) {
+    super(message);
+
+    this.statusCode = statusCode;
+    //the statusCode as a stringstarts with a four, well, then we have a fail.And so here, let's use the ternary, okay,and so it's fail when it starts with a four,and otherwise it's an error,
+    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+    //So all of our errors willget this property set to true,and I'm doing that so that laterwe can then test for this propertyand only send error messages backto the client for these operational errorsthat we created using this class.And this is useful because some other crazy unexpected errors that might happenin our application, for example a programming error,or some bug in one of the packagesthat we require into our app,and these errors will then of coursenot have this .is operational property on them.
+    this.isOperational = true;
+  }
+}
+```
+
+> utils/appError.js
+
+Stacktrace show where the error happened, also will show the all call stacks
+
+```js
+console.log(err.stack);
+```
 
 
-## Better Errors and Refactoring
+
+
+
+
 
 ## Catching Errors in Async Functions
 
