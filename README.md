@@ -85,8 +85,6 @@ And just to finish this part now,remember that we had two other crazy endpoint n
 
 So,` /getToursByUser` can simply be translated to`/users/tours`,in this case, user number three.So this particular endpoint herecould send data about all the toursthat user number three has booked.Makes sense? Or in the case of deleting,there could be a delete request to the sameor a very similar endpoint,requesting tour number nine to be deletedfrom user number three, okay?So there really are a tons of possibilitiesof combining resources like this.But of course, we don't have to implementall these combinations in our API.We only implement what makes sensein the case of our applicationand the client that wants to consume our API.So, this is how we make use of HTTP methodsto build user-friendly and nicely structured URLsthat are easy and logical to consume for the client.
 
-![JSON](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1678301639/node.js%20notes/Screen_Shot_2023-02-21_at_9.31.31_PM_brp11u.png)
-
 Now, about the data that the client actually receives,or that the server receives from the client,usually, we use the JSON Data Format.And so let's briefly learn what JSON actually isand how to format our API responses.
 
 JSON is a very lightweight data interchange formatwhich is heavily used by web APIscoded in any programming language.So it's just not related to a JavaScript.
@@ -1516,7 +1514,7 @@ exports.deleteTour = async (req, res) => {
 
 ![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1678642843/Screen_Shot_2023-03-12_at_12.40.21_PM_msjhtn.png)
 
-### Reference https://www.natours.dev/api/v1/tours
+Reference https://www.natours.dev/api/v1/tours
 
 ## 💛 Importing Development Data
 
@@ -2309,8 +2307,6 @@ exports.getTourStats = async (req, res) => {
 router.route('/tour-stats').get(tourController.getTourStats);
 ```
 
-## ![https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679244203/node.js%20notes/Screen_Shot_2023-03-19_at_11.43.19_AM_d1x6rq.png](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679244203/node.js notes/Screen_Shot_2023-03-19_at_11.43.19_AM_d1x6rq.png)
-
 ## Aggregation Pipeline: Unwinding and Projecting
 
 ```js
@@ -2374,7 +2370,7 @@ exports.getMonthlyPlan = async (req, res) => {
 router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 ```
 
-![https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679243151/node.js%20notes/Screen_Shot_2023-03-19_at_11.25.45_AM_ocwmcm.png](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679243151/node.js notes/Screen_Shot_2023-03-19_at_11.25.45_AM_ocwmcm.png)
+![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679243151/node.js notes/Screen_Shot_2023-03-19_at_11.25.45_AM_ocwmcm.png)
 
 ```js
  const plan = await Tour.aggregate([
@@ -2401,11 +2397,11 @@ router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
     ]);
 ```
 
-![https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679272909/node.js%20notes/Screen_Shot_2023-03-19_at_7.41.24_PM_v0ii82.png](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679272909/node.js notes/Screen_Shot_2023-03-19_at_7.41.24_PM_v0ii82.png)
+![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679272909/node.js notes/Screen_Shot_2023-03-19_at_7.41.24_PM_v0ii82.png)
 
-## [#](https://segmentfault.com/q/1010000014002955)Virtual Properties
+## Virtual Properties
 
-### Define the virtual property
+Define the virtual property
 
 now virtual properties are basically fieldsthat we can define on our schemabut that will not be persisted.So they will not be saved into the databasein order to save us some space there.And most of the time, of course,we want to really save our data to the database,but virtual properties make a lot of sens efor fields that can be derived from one another.For example a conversion from miles to kilometers,it doesn't make sense to store these two fieldsin a database if we can easily convertone to the other, right?
 
@@ -2430,11 +2426,11 @@ tourSchema.virtual('durationWeeks').get(function () {
 });
 ```
 
- ![https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679275946/node.js%20notes/Screen_Shot_2023-03-19_at_8.31.52_PM_gab5u3.png](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679275946/node.js notes/Screen_Shot_2023-03-19_at_8.31.52_PM_gab5u3.png)
+ ![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679275946/node.js notes/Screen_Shot_2023-03-19_at_8.31.52_PM_gab5u3.png)
 
 Now one thing that we need to keep in mindis that we cannot use this virtual property herein a query, because they're technically not part of the database.So we can not say, for example,tour.find where duration weeks is equal to one.That's not gonna work, again because this propertyis not actually part of the database.Now of course we could also have done this conversioneach time after we query the data, for example,like in a controller, but that would notbe the best practice simply because we want to tryto keep business logic and application logic as much separated as possible, remember? So that was that whole talk about fat modelsand thin controllers that we talked about beforewhich says that we should have modelswith as much business logic as we can off load to themand thin controllers with as littlebusiness logic as possible.And so virtual properties like this are actually a good example of how we can achievethat kind of architecture.So knowing the duration in weeksis a business logic because it has to dowith the business itself, not with stuff like requestsor responses, and so we do the calculationright in the model where it belongsand not in the controller.
 
-## [#](https://mongoosejs.com/docs/middleware.html#pre)Document middleware(Mongoose)
+## Document middleware(Mongoose)
 
 Now, just like with Express, we can use **Mongoose middleware** to make **something happen between two event**s. For example, each time a new document is saved to the database, we can **run a function between the save command is issued and the actual saving of the document,** or also after the actual saving.And that's the reason why Mongoose middlewareis also called **pre and post hooks.  **
 
@@ -2455,7 +2451,7 @@ tourSchema.pre('save', function () {
 
 and so this is what our document is looking like right before it saved into the database.
 
-![https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679277198/node.js%20notes/Screen_Shot_2023-03-19_at_8.50.38_PM_df0pmd.png](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679277198/node.js notes/Screen_Shot_2023-03-19_at_8.50.38_PM_df0pmd.png)
+![](https://res.cloudinary.com/dxmfrq4tk/image/upload/v1679277198/node.js notes/Screen_Shot_2023-03-19_at_8.50.38_PM_df0pmd.png)
 
 And **so at this point of time, we can still act on the data before it is then saved to the database and that is exactly** what I wanna do here is to create a slug for each of these documents. So remember how in the first section, we created a slug for each of the products that we had in the store. And so **a slug is basically just a string that we can put in the URL, usually based on some string like the name.**  So in this case, we're gonna create **a slug based here on the tour name.** So remember how for that we used the slugify package. And so let's now go ahead and install that.
 
@@ -2498,7 +2494,7 @@ tourSchema.post('save', function (doc, next) {
 
 [#Middleware mongoose ‼️](https://blog.csdn.net/caseywei/article/details/109524964)
 
-## Query middleware
+## Query middleware(Mongoose)
 
 let's now add a pre-find hook,so basically, a middleware that is gonna runbefore any find query is executed.So let's add another comment here.So this is query middleware.
 
@@ -2618,7 +2614,7 @@ which should return either true or false.And if it returns false, then it means 
     },
 ```
 
-> npm i validator https://github.com/validatorjs/validator.js/
+> `npm i validator` https://github.com/validatorjs/validator.js/
 
 ```js
 const validator = require('validator');
@@ -2627,6 +2623,10 @@ const validator = require('validator');
 ```
 
 # 🚧Error Handling with Express
+
+## Debugging Node.js with ndb
+
+### Installation
 
 > package.json
 
@@ -2639,3 +2639,18 @@ sudo npm i ndb
 sudo npm run debug
 ```
 
+## Handling Unhandled route
+
+So for doing that remember that all these middleware functions are executed in the order they are in the code. so this should basically be the last part after all our other routes, 
+
+```js
+// implement route handler, handler all routes, http methods
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'failed',
+    message: `Can't find ${req.originalUrl} on this server`,
+  });
+});
+```
+
+##  An Overview of Error Handling
