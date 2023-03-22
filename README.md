@@ -2714,13 +2714,11 @@ class AppError extends Error {
     this.statusCode = statusCode;
     //the statusCode as a stringstarts with a four, well, then we have a fail.And so here, let's use the ternary, okay,and so it's fail when it starts with a four,and otherwise it's an error,
     this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
-    //So all of our errors willget this property set to true,and I'm doing that so that laterwe can then test for this propertyand only send error messages backto the client for these operational errorsthat we created using this class.And this is useful because some other crazy unexpected errors that might happenin our application, for example a programming error,or some bug in one of the packagesthat we require into our app,and these errors will then of coursenot have this .is operational property on them.
+    //So all of our errors will get this property set to true,and I'm doing that so that laterwe can then test for this propertyand only send error messages backto the client for these operational errorsthat we created using this class.And this is useful because some other crazy unexpected errors that might happenin our application, for example a programming error,or some bug in one of the packagesthat we require into our app,and these errors will then of coursenot have this .is operational property on them.
     this.isOperational = true;
   }
 }
 ```
-
-> utils/appError.js
 
 Stacktrace show where the error happened, also will show the all call stacks
 
@@ -2728,13 +2726,72 @@ Stacktrace show where the error happened, also will show the all call stacks
 console.log(err.stack);
 ```
 
+> utils/appError.js
+
+```js
+class AppError extends Error {
+  constructor(message, statusCode) {
+    //  just one question that you might have is'Why didn't I set this.message equal to message?'Well, that's just because right here I calledthe parent class, right, and the parent classis error, and whatever we pass into itis gonna be the message property.So just as I told you before.And so, basically, in here by doing this parent callwe already set the message propertyto our incoming message.
+    super(message);
+
+    this.statusCode = statusCode;
+    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+    this.isOperational = true;
+    //current object =>this, appError class itself =>this.constructor
+    Error.capturesStackTrace(this, this.constructor);
+  }
+}
+module.exports = AppError;
+```
+
+> App.js
+
+```js
+const AppError = require('./utils/appError');
 
 
+// implement route handler, handler all routes, http methods
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+});
+```
 
+Okay, and finally I actually also want to export this middleware here, okay? So basically, this handlerbecause throughout the rest of the section,we're gonna build a couple of differentfunctions for handling with different types of errors,and so I want all of these functionsto be all in the same file, all right?
 
+> app.js
 
+```js
+const globalErrorHandler = require('./controllers/errorController');
+
+app.use(globalErrorHandler);
+```
+
+That I just mentioned are handlers, okay,and so handlers, we also call them controllersin the context of the MVC architecture,and so let's now actually createan error controller file in our controller folder. Okay, and this might sound or look a bit weirdbecause we actually do not have an error resourceokay, and so probably some people are gonna disagreewith me that this is the correct place,but I personally like to do it like this because at the end of the day,these functions, t**hey kinda are likereally for controlling our errors,**  
+
+> controllers/errorController.js
+
+```js
+module.exports = (err, req, res, next) => {
+  //internal server error 500
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
+};
+```
 
 ## Catching Errors in Async Functions
+
+In out tourController.js file, catch error in all async function
+
+
+
+
+
+
 
 ## Adding 404 Not Found Errors
 
