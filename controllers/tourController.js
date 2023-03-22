@@ -53,26 +53,34 @@ exports.getTour = async (req, res) => {
   }
 };
 
-exports.createTour = async (req, res) => {
-  try {
-    // const newTour = new Tour({})
-    // newTour.save()
-
-    const newTour = await Tour.create(req.body);
-
-    res.status(201).json({
-      status: 'success',
-      data: {
-        tour: newTour,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: err,
-    });
-  }
+// eslint-disable-next-line arrow-body-style
+const catchAsync = (fn) => {
+  return (req, res, next) => {
+    // eslint-disable-next-line no-undef
+    fn(req, res, next).catch((err) => next(err));
+  };
 };
+
+exports.createTour = catchAsync(async (req, res, next) => {
+  const newTour = await Tour.create(req.body);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      tour: newTour,
+    },
+  });
+  // try {
+  //   // const newTour = new Tour({})
+  //   // newTour.save()
+
+  // } catch (err) {
+  //   res.status(400).json({
+  //     status: 'fail',
+  //     message: err,
+  //   });
+  // }
+});
 
 exports.updateTour = async (req, res) => {
   try {
