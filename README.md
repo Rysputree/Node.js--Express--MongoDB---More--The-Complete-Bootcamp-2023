@@ -4,6 +4,8 @@
 
  💥 Master Node by building a real-world RESTful API and web app (with authentication, Node.js security, payments & more)
 
+# 🚧Building API
+
 ## Initialization Project
 
 ```js
@@ -1003,7 +1005,7 @@ So node JS, or Express apps,can run in different environments.And the most impor
   }
   ```
 
-## ESlint and prettier
+### ESlint and prettier
 
 > package.json
 >
@@ -1048,7 +1050,7 @@ So node JS, or Express apps,can run in different environments.And the most impor
 > }
 > ```
 
-## 💛MongoDB
+# 🚧Introduction to MongoDB
 
 “MongoDB is a document database with the scalability and flexibility that you want with the querying and indexing that you need” `database  -> colllections -> documents`
 
@@ -1326,6 +1328,10 @@ Also, if we have views in our app,the **application logic serves as a bridge bet
 **Business logic**,it's all the code that actually solves the business problem that we set out to solve. Let's say again, that our goal is to show tours to customers and then sell them. And the code that is directly related to the business rules,to how the business works,and the business needs, is business logic.Now if that still sounds a bit too philosophical,some examples in the context of our latest appare creating new tours in the app's database,checking if a user's password is correct when he logs in,validating user input data,or ensuring that only users who bought a certain tourcan review it.So all this stuff is concerned with the business itself,and so it's part of the business logic.
 
 Now, we need to keep in mind that application logic and business logic are almost impossible to completely separate,and so sometimes they will overlap.But we should do our best effortsto keep the application logic in our controllers and business logic in our models.And there is even this philosophy offat models, thin controllers,which says we should offload as much logic as possible into the models,to keep the controllers as simple and lean as possible.So a fat model will have as much business logicas we can offload to it,and a thin controller will have as little logic as possible,so that the **controller is really mostly for managing the application's requests and responses.**
+
+
+
+# 🚧Using MongoDB with Mongoose
 
 ### Refactoring MVC
 
@@ -2620,3 +2626,6 @@ const validator = require('validator');
 //validate: [validator.isAlpha, 'Tour name must only contain characters']
 ```
 
+# 🚧Error Handling with Express
+
+# 
