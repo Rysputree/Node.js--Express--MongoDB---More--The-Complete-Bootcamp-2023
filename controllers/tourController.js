@@ -60,7 +60,7 @@ const catchAsync = (fn) => {
     fn(req, res, next).catch((err) => next(err));
   };
 };
-
+.,
 exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
 
